@@ -1,12 +1,7 @@
 ﻿using SnakeAndLadder.GameOn;
 
-Console.WriteLine("Hello, Player!");
 
-
-var player1 = new Player() { Position = 0 };
-
-var board = new Board() { NumberOfTiles = 72 };
-
+//ladder position
 var ladders = new List<Ladder>()
 {
     new Ladder() { Position = 3, TargetPosition = 21 },
@@ -21,6 +16,7 @@ var ladders = new List<Ladder>()
     new Ladder() { Position = 68, TargetPosition = 49 },
 };
 
+//snake position
 var snakes = new List<Snake>()
 {
     new Snake() { Position = 14, TargetPosition = 4 },
@@ -35,36 +31,42 @@ var snakes = new List<Snake>()
     new Snake() { Position = 70, TargetPosition = 58 },
 };
 
-var game = new Game(player1);
 
-Console.WriteLine("\n Lets roll Dice");
+var playerRenju = new Player() { Position = 0 };
+
+var board = new Board() { NumberOfRows = 8,NumberOfColumns = 9};
+
+var game = new Game(playerRenju);
+
+Console.WriteLine("Hello, Player!");
+Console.WriteLine("Lets roll Dice");
+
+
 
 while (true)
 {
-    Console.WriteLine("\n Press any key to roll Dice");
-    Console.ReadKey();
-    var diceOutput = game.RollDice();
+    var gameEntryDiceOutput = game.PlayerRollDice();
 
-    if (diceOutput == 6)
+
+    if (gameEntryDiceOutput == 6)
     {
-        Console.WriteLine("\n You rolled 6! Game Begins");
+        Console.WriteLine("You rolled 6! Game Begins");
 
         while (true)
         {
+            var playerTurnDiceOutput = game.PlayerRollDice();
+            game.PlayerMove(playerRenju, playerTurnDiceOutput, snakes, ladders);
+            board.PrintBoard(playerRenju.Position);
 
-            Console.WriteLine("\n Roll Dice again. Press any key");
-            Console.ReadKey();
-            var diceOutput2 = game.RollDice();
-            game.PlayerMove(player1, diceOutput2, snakes, ladders);
-            if (player1.Position >= 72)
+            if (game.CheckIfPlayerWon(playerRenju, board.NumberOfTiles))
             {
-                Console.WriteLine("\n you reached position 72!! you won. Game Over");
+                Console.WriteLine("you reached position 72!! you won. Game Over");
                 Environment.Exit(0);
             }
         }
     }
     else
     {
-        Console.WriteLine($"\n You rolled {diceOutput}! Game not open. Roll Dice again.");
+        Console.WriteLine($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.");
     }
 }

@@ -9,5 +9,6 @@ namespace SnakeAndLadder.GameOn
     public class Player
     {
         public int Position { get; set; }
+        public bool IsPlayerGameStarted { get; set; }
     }
 }

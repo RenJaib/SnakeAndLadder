@@ -14,40 +14,48 @@ namespace SnakeAndLadder.GameOn
         {
             _player = player;
         }
-        public int RollDice()
-        {
-            Random random = new Random();
-            return random.Next(1, 7);
-        }
 
         public int PlayerMove(Player player, int noOfTilesToMove, List<Snake> snakeList, List<Ladder> ladderList)
         {
-            Console.WriteLine($"/n rolled {noOfTilesToMove}");
+            Console.WriteLine($"rolled {noOfTilesToMove}");
             _player.Position = player.Position + noOfTilesToMove;
             
 
             if (ladderList.Any(x => x.Position == player.Position))
             {
-                Console.WriteLine("/n you climbed a ladder");
+                Console.WriteLine("you climbed a ladder");
                 _player.Position = ladderList.FirstOrDefault(x => x.Position == player.Position).TargetPosition;
-                Console.WriteLine($"/n you are now at position {_player.Position}");
+                Console.WriteLine($"you are now at position {_player.Position}");
 
                 return _player.Position;
             }
 
             if (snakeList.Any(x => x.Position == player.Position))
             {
-                Console.WriteLine("/n you are eaten by snake");
+                Console.WriteLine(" you are eaten by snake");
                 _player.Position = snakeList.FirstOrDefault(x => x.Position == player.Position).TargetPosition;
-                Console.WriteLine($"/n you are now at position {_player.Position}");
+                Console.WriteLine($"you are now at position {_player.Position}");
 
                 return _player.Position;
             }
 
-            Console.WriteLine($"/n you are now at position {_player.Position}");
+            Console.WriteLine($"you are now at position {_player.Position}");
 
             return _player.Position;
         }
-         
+        
+
+        public int PlayerRollDice()
+        {
+            Console.WriteLine("Press any key to roll Dice");
+            Console.ReadKey();
+            Random random = new Random();
+            return random.Next(1, 7);
+        }
+
+        public bool CheckIfPlayerWon(Player playerRenju, int numberOfTiles)
+        {
+            return playerRenju.Position >= numberOfTiles;
+        }
     }
 }
