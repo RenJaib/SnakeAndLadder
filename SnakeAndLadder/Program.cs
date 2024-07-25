@@ -1,4 +1,5 @@
-﻿using SnakeAndLadder.GameOn;
+﻿using Raylib_cs;
+using SnakeAndLadder.GameOn;
 
 
 //ladder position
@@ -38,35 +39,45 @@ var board = new Board() { NumberOfRows = 8,NumberOfColumns = 9};
 
 var game = new Game(playerRenju);
 
-Console.WriteLine("Hello, Player!");
-Console.WriteLine("Lets roll Dice");
+Raylib.InitWindow(800, 480, "SnakeAndLadder");
 
-
-
-while (true)
+while (!Raylib.WindowShouldClose())
 {
-    var gameEntryDiceOutput = game.PlayerRollDice();
+    Raylib.BeginDrawing();
+    Raylib.ClearBackground(Color.White);
 
+    Raylib.DrawText("Hello, Player!", 12, 12, 20, Color.Black);
+    Raylib.DrawText("Lets roll Dice!", 12, 12, 20, Color.Blue);
 
-    if (gameEntryDiceOutput == 6)
+    while (true)
     {
-        Console.WriteLine("You rolled 6! Game Begins");
+        var gameEntryDiceOutput = game.PlayerRollDice();
 
-        while (true)
+
+        if (gameEntryDiceOutput == 6)
         {
-            var playerTurnDiceOutput = game.PlayerRollDice();
-            game.PlayerMove(playerRenju, playerTurnDiceOutput, snakes, ladders);
-            board.PrintBoard(playerRenju.Position);
+           Raylib.DrawText("You rolled 6! Game Begins", 12, 12, 20, Color.Pink);
 
-            if (game.CheckIfPlayerWon(playerRenju, board.NumberOfTiles))
+            while (true)
             {
-                Console.WriteLine("you reached position 72!! you won. Game Over");
-                Environment.Exit(0);
+                var playerTurnDiceOutput = game.PlayerRollDice();
+                game.PlayerMove(playerRenju, playerTurnDiceOutput, snakes, ladders);
+                board.PrintBoard(playerRenju.Position);
+
+                if (game.CheckIfPlayerWon(playerRenju, board.NumberOfTiles))
+                {
+                    Console.WriteLine("you reached position 72!! you won. Game Over");
+                    Environment.Exit(0);
+                }
             }
         }
+        else
+        {
+            Console.WriteLine($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.");
+        }
     }
-    else
-    {
-        Console.WriteLine($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.");
-    }
+
+    Raylib.EndDrawing();
 }
+
+

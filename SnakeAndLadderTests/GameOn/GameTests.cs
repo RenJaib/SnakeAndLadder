@@ -44,7 +44,7 @@ namespace SnakeAndLadderTests.GameOn
             bool isPlayerWon = game.CheckIfPlayerWon(player, numberOfTiles);
 
             // Assert
-            Assert.IsTrue(isPlayerWon,
+            Assert.That (isPlayerWon,
                 $"Expected player to win but failed. Player position is {player.Position}, NumberOfTiles is {numberOfTiles}");
         }
 
@@ -64,7 +64,7 @@ namespace SnakeAndLadderTests.GameOn
             bool isPlayerWon = game.CheckIfPlayerWon(player, numberOfTiles);
 
             // Assert
-            Assert.IsFalse(isPlayerWon,
+            Assert.That(isPlayerWon,
                 $"Expected player not to win but failed. Player position is {player.Position}, NumberOfTiles is {numberOfTiles}");
         }
     }

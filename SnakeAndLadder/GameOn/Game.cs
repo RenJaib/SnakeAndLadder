@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Raylib_cs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,8 +48,21 @@ namespace SnakeAndLadder.GameOn
 
         public int PlayerRollDice()
         {
-            Console.WriteLine("Press any key to roll Dice");
-            Console.ReadKey();
+
+            while (!Raylib.WindowShouldClose())
+            {
+                Raylib.BeginDrawing();
+                Raylib.ClearBackground(Color.White);
+
+
+                Raylib.DrawText("Press space key to Roll dice", 12, 12, 20, Color.Blue); ;
+                if (Raylib.IsKeyPressed(KeyboardKey.Space))
+                {
+                    break;
+                }
+            }
+
+
             Random random = new Random();
             return random.Next(1, 7);
         }
