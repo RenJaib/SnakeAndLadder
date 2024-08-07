@@ -44,27 +44,21 @@ namespace SnakeAndLadder.GameOn
 
             return _player.Position;
         }
-        
+
 
         public int PlayerRollDice()
         {
-
-            while (!Raylib.WindowShouldClose())
+            while(!Raylib.IsKeyPressed(KeyboardKey.Space))
             {
                 Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.White);
-
-
-                Raylib.DrawText("Press space key to Roll dice", 12, 12, 20, Color.Blue); ;
-                if (Raylib.IsKeyPressed(KeyboardKey.Space))
-                {
-                    break;
-                }
+                Raylib.DrawText("Press space key to Roll dice", 12, 52, 20, Color.Blue); ;
+                Raylib.EndDrawing();
             }
 
 
             Random random = new Random();
             return random.Next(1, 7);
+
         }
 
         public bool CheckIfPlayerWon(Player playerRenju, int numberOfTiles)

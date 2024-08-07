@@ -35,49 +35,57 @@ var snakes = new List<Snake>()
 
 var playerRenju = new Player() { Position = 0 };
 
-var board = new Board() { NumberOfRows = 8,NumberOfColumns = 9};
+var board = new Board() { NumberOfRows = 8, NumberOfColumns = 9 };
 
 var game = new Game(playerRenju);
 
 Raylib.InitWindow(800, 480, "SnakeAndLadder");
+Raylib.SetTargetFPS(40);
 
-while (!Raylib.WindowShouldClose())
+
+Raylib.BeginDrawing();
+Raylib.ClearBackground(Color.White);
+
+Raylib.DrawText("Hello, Player!", 12, 12, 20, Color.Black);
+Raylib.DrawText("Lets roll Dice!", 12, 32, 20, Color.Blue);
+Raylib.EndDrawing();
+
+
+
+while (true)
 {
-    Raylib.BeginDrawing();
-    Raylib.ClearBackground(Color.White);
+    var gameEntryDiceOutput = game.PlayerRollDice();
 
-    Raylib.DrawText("Hello, Player!", 12, 12, 20, Color.Black);
-    Raylib.DrawText("Lets roll Dice!", 12, 12, 20, Color.Blue);
 
-    while (true)
+    if (gameEntryDiceOutput == 6)
     {
-        var gameEntryDiceOutput = game.PlayerRollDice();
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.White);
+        Raylib.DrawText("You rolled 6! Game Begins", 32, 12, 20, Color.Pink);
+        Raylib.EndDrawing();
 
-
-        if (gameEntryDiceOutput == 6)
+        while (true)
         {
-           Raylib.DrawText("You rolled 6! Game Begins", 12, 12, 20, Color.Pink);
+            var playerTurnDiceOutput = game.PlayerRollDice();
+            game.PlayerMove(playerRenju, playerTurnDiceOutput, snakes, ladders);
+            board.PrintBoard(playerRenju.Position);
 
-            while (true)
+            if (game.CheckIfPlayerWon(playerRenju, board.NumberOfTiles))
             {
-                var playerTurnDiceOutput = game.PlayerRollDice();
-                game.PlayerMove(playerRenju, playerTurnDiceOutput, snakes, ladders);
-                board.PrintBoard(playerRenju.Position);
-
-                if (game.CheckIfPlayerWon(playerRenju, board.NumberOfTiles))
-                {
-                    Console.WriteLine("you reached position 72!! you won. Game Over");
-                    Environment.Exit(0);
-                }
+                Console.WriteLine("you reached position 72!! you won. Game Over");
+                Environment.Exit(0);
             }
         }
-        else
-        {
-            Console.WriteLine($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.");
-        }
     }
-
-    Raylib.EndDrawing();
+    else
+    {
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.White);
+        Raylib.DrawText($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.", 32, 42, 20, Color.Pink);
+        Raylib.EndDrawing();
+    }
 }
+
+
 
 
