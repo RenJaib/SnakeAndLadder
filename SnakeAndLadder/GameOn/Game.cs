@@ -48,13 +48,15 @@ namespace SnakeAndLadder.GameOn
 
         public int PlayerRollDice()
         {
-            while(!Raylib.IsKeyPressed(KeyboardKey.Space))
+            var isSpaceKeyPressed = false;
+            while (!isSpaceKeyPressed)
             {
                 Raylib.BeginDrawing();
-                Raylib.DrawText("Press space key to Roll dice", 12, 52, 20, Color.Blue); ;
+                Raylib.ClearBackground(Color.White);
+                Raylib.DrawText("Press space key to Roll dice", 12, 12, 20, Color.Blue);
+                isSpaceKeyPressed = Raylib.IsKeyPressed(KeyboardKey.Space);
                 Raylib.EndDrawing();
             }
-
 
             Random random = new Random();
             return random.Next(1, 7);

@@ -43,12 +43,13 @@ Raylib.InitWindow(800, 480, "SnakeAndLadder");
 Raylib.SetTargetFPS(40);
 
 
-Raylib.BeginDrawing();
+ Raylib.BeginDrawing();
 Raylib.ClearBackground(Color.White);
 
 Raylib.DrawText("Hello, Player!", 12, 12, 20, Color.Black);
 Raylib.DrawText("Lets roll Dice!", 12, 32, 20, Color.Blue);
 Raylib.EndDrawing();
+Raylib.WaitTime(2);
 
 
 
@@ -61,8 +62,17 @@ while (true)
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.White);
-        Raylib.DrawText("You rolled 6! Game Begins", 32, 12, 20, Color.Pink);
+        Raylib.DrawText("You rolled 6! Game Begins", 12, 12, 40, Color.Pink);
         Raylib.EndDrawing();
+        Raylib.WaitTime(2);
+
+
+        //tomorrow - add this below section to playermove 
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.White);
+        Raylib.DrawRectangle(10, 10, 100, 100, Color.Red);
+        Raylib.EndDrawing();
+        Raylib.WaitTime(2);
 
         while (true)
         {
@@ -81,8 +91,9 @@ while (true)
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.White);
-        Raylib.DrawText($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.", 32, 42, 20, Color.Pink);
+        Raylib.DrawText($"You rolled {gameEntryDiceOutput}! Game not open. Roll Dice again.", 12, 12, 20, Color.Pink);
         Raylib.EndDrawing();
+        Raylib.WaitTime(2);
     }
 }
 
